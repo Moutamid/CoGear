@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_menu_view"
+    tools:showIn="navigation_view">
+
+    <item android:id="@+id/nav_feed"
+        android:icon="@drawable/feed"
+        android:title="Feeds" />
+
+    <item android:id="@+id/nav_notification"
+        android:icon="@drawable/notification"
+        android:title="Notifications" />
+
+    <item android:id="@+id/nav_profile"
+        android:icon="@drawable/profle"
+        android:title="Profile" />
+
+    <item android:id="@+id/nav_setting"
+        android:icon="@drawable/setting"
+        android:title="Setting" />
+
+    <item android:id="@+id/nav_logout"
+        android:icon="@drawable/logout"
+        android:title="@string/logout" />
+
+
+</menu>

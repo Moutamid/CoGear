@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".MainActivity">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       android:layout_marginTop="25dp"
+       android:layout_alignParentTop="true">
+
+       <ImageView
+           android:layout_width="100dp"
+           android:layout_height="100dp"
+           android:layout_gravity="center"
+           android:src="@drawable/logo" />
+
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="CoGear"
+           android:textColor="@color/darkB"
+           android:fontFamily="@font/inter_extrabold"
+           android:textSize="28dp"
+           android:gravity="center"
+           android:textStyle="bold" />
+
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="Towards a more sustainable future"
+           android:fontFamily="@font/inter_extrabold"
+           android:textColor="@color/lightB"
+           android:textSize="22dp"
+           android:gravity="center"
+           android:textStyle="bold" />
+
+   </LinearLayout>
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       android:layout_alignParentBottom="true">
+
+       <com.google.android.material.card.MaterialCardView
+           android:id="@+id/btnSignup"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:cardElevation="8dp"
+           app:cardCornerRadius="8dp"
+           android:layout_marginStart="15dp"
+           android:layout_marginEnd="15dp"
+           android:layout_marginBottom="10dp"
+           app:cardBackgroundColor="@color/darkB">
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:gravity="center"
+               android:padding="15dp"
+               android:textStyle="bold"
+               android:fontFamily="@font/inter_extrabold"
+               android:textColor="@color/white"
+               android:textSize="20dp"
+               android:text="Sign Up" />
+
+       </com.google.android.material.card.MaterialCardView>
+
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:gravity="center"
+           android:text="or"
+           android:layout_marginBottom="10dp"
+           android:textColor="@color/white"
+           android:fontFamily="@font/inter_extrabold"
+           android:textSize="18dp"
+           android:textStyle="bold"/>
+
+       <com.google.android.material.card.MaterialCardView
+           android:id="@+id/btnLogin"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:cardElevation="8dp"
+           app:cardCornerRadius="8dp"
+           android:layout_marginStart="15dp"
+           android:layout_marginEnd="15dp"
+           android:layout_marginBottom="10dp"
+           app:cardBackgroundColor="@color/lightB">
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:gravity="center"
+               android:padding="15dp"
+               android:fontFamily="@font/inter_extrabold"
+               android:textStyle="bold"
+               android:textColor="@color/white"
+               android:textSize="20dp"
+               android:text="Login" />
+
+       </com.google.android.material.card.MaterialCardView>
+
+   </LinearLayout>
+
+</RelativeLayout>

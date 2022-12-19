@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".SelectInterestActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarSize="0dp"
+        android:fillViewport="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="25dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/logo" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="CoGear"
+                    android:fontFamily="@font/inter_extrabold"
+                    android:textColor="@color/darkB"
+                    android:textSize="28dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:fontFamily="@font/inter_extrabold"
+                    android:text="Towards a more sustainable future"
+                    android:textColor="@color/lightB"
+                    android:textSize="22dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/header"
+                android:layout_margin="15dp"
+                android:background="@drawable/background">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:text="Select Your:"
+                    android:fontFamily="@font/inter_extrabold"
+                    android:textStyle="bold"
+                    android:textColor="@color/dark"
+                    android:textSize="20dp" />
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/title"
+                    android:layout_above="@id/btnComplete"
+                    android:scrollbarSize="0dp"
+                    android:fillViewport="true">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/titInt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:fontFamily="@font/inter_extrabold"
+                            android:layout_marginBottom="10dp"
+                            android:padding="10dp"
+                            android:textSize="18sp"
+                            android:text="Interests!"
+                            android:textColor="@color/dark"
+                            android:textStyle="bold" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/interests"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/titInt" />
+
+                        <TextView
+                            android:id="@+id/titRegion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/interests"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="8dp"
+                            android:padding="10dp"
+                            android:fontFamily="@font/inter_extrabold"
+                            android:textSize="18dp"
+                            android:text="Region!"
+                            android:textColor="@color/dark"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/regionChipGroup"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/titRegion"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp">
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/EuropeChip"
+                                style="@style/ChipsColor"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checkable="true"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:fontFamily="@font/inter"
+                                app:textEndPadding="25dp"
+                                app:chipStrokeWidth="1dp"
+                                app:chipStrokeColor="@color/lightB"
+                                app:textStartPadding="25dp"
+                                android:text="Europe"
+                                android:textSize="16sp" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/AsiaChip"
+                                style="@style/ChipsColor"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checkable="true"
+                                android:clickable="true"
+                                android:focusable="true"
+                                app:textEndPadding="25dp"
+                                android:fontFamily="@font/inter"
+                                app:textStartPadding="25dp"
+                                app:chipStrokeWidth="1dp"
+                                app:chipStrokeColor="@color/lightB"
+                                android:text="Asia"
+                                android:textSize="16sp" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/AfricaChip"
+                                style="@style/ChipsColor"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checkable="true"
+                                android:fontFamily="@font/inter"
+                                android:clickable="true"
+                                android:focusable="true"
+                                app:textEndPadding="25dp"
+                                app:chipStrokeWidth="1dp"
+                                app:chipStrokeColor="@color/lightB"
+                                app:textStartPadding="25dp"
+                                android:text="Africa"
+                                android:textSize="16sp" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/NorthAmericaChip"
+                                style="@style/ChipsColor"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checkable="true"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:fontFamily="@font/inter"
+                                app:textEndPadding="25dp"
+                                app:textStartPadding="25dp"
+                                app:chipStrokeWidth="1dp"
+                                app:chipStrokeColor="@color/lightB"
+                                android:text="North America"
+                                android:textSize="16sp" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/SouthAmericaChip"
+                                style="@style/ChipsColor"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checkable="true"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:fontFamily="@font/inter"
+                                app:textEndPadding="25dp"
+                                app:textStartPadding="25dp"
+                                app:chipStrokeWidth="1dp"
+                                app:chipStrokeColor="@color/lightB"
+                                android:text="South America"
+                                android:textSize="16sp" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/AustraliaChip"
+                                style="@style/ChipsColor"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checkable="true"
+                                android:clickable="true"
+                                android:focusable="true"
+                                app:textEndPadding="25dp"
+                                app:textStartPadding="25dp"
+                                android:fontFamily="@font/inter"
+                                app:chipStrokeWidth="1dp"
+                                app:chipStrokeColor="@color/lightB"
+                                android:text="Australia"
+                                android:textSize="16sp" />
+
+                        </com.google.android.material.chip.ChipGroup>
+
+                    </RelativeLayout>
+
+                </ScrollView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btnComplete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    app:cardBackgroundColor="@color/darkB"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:padding="12dp"
+                        android:fontFamily="@font/inter_extrabold"
+                        android:text="Complete"
+                        android:textColor="@color/white"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
