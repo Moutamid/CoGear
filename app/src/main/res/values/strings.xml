@@ -8,4 +8,28 @@
     <string name="logout"><font color="#EC0000">Logout</font></string>
 
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi iste obcaecati perferendis. Dolores ea eius nihil, officia placeat quaerat reiciendis! Assumenda doloribus eligendi enim explicabo molestiae, nemo numquam quod sint suscipit unde? A, atque dolorum eaque eligendi error facilis hic ipsam laboriosam laudantium modi nesciunt nihil nobis odit quis sint.</string>
+
+
+    <string-array name="category">
+
+        <item>No Poverty</item>
+        <item>Zero Hunger</item>
+        <item>Good Health &#38; well being</item>
+        <item>Quality Education</item>
+        <item>Gender Equality</item>
+        <item>Clean Water and Sanitation</item>
+        <item>Affordable and clean energy</item>
+        <item>Decent Work and economic growth</item>
+        <item>Industry innovation and infrastructure</item>
+        <item>Reduced in qualities</item>
+        <item>Sustainable cities and communities</item>
+        <item>Responsible consumption and production</item>
+        <item>Climate action</item>
+        <item>Life below water</item>
+        <item>Life on land</item>
+        <item>Peace, justice and strong institutions</item>
+
+    </string-array>
+
+
 </resources>

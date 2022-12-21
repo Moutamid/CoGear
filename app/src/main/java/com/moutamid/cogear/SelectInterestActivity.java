@@ -26,7 +26,7 @@ public class SelectInterestActivity extends AppCompatActivity {
     InterestsAdater adater;
     String[] interestList = {
             "No Poverty", "Zero Hunger", "Good Health & well being", "Quality Education",
-            "Gender Equality", "Clean Water adn Sanitation", "Affordable and clean energy", "Decent Work and economic growth",
+            "Gender Equality", "Clean Water and Sanitation", "Affordable and clean energy", "Decent Work and economic growth",
             "Industry innovation and infrastructure", "Reduced in qualities", "Sustainable cities and communities", "Responsible consumption and production",
             "Climate action", "Life below water", "Life on land", "Peace, justice and strong institutions"
     };

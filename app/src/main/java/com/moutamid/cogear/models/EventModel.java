@@ -1,19 +1,28 @@
 package com.moutamid.cogear.models;
 
 public class EventModel {
-    String ID, title, description, category, city, image;
+    String ID, userID, title, description, category, city, image;
     int members;
 
     public EventModel(){}
 
-    public EventModel(String ID, String title, String description, String category, String city, String image, int members) {
+    public EventModel(String ID, String userID, String title, String description, String category, String city, String image, int members) {
         this.ID = ID;
+        this.userID = userID;
         this.title = title;
         this.description = description;
         this.category = category;
         this.city = city;
         this.image = image;
         this.members = members;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public String getID() {

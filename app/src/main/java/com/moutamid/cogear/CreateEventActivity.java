@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.fxn.stash.Stash;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,7 +28,7 @@ public class CreateEventActivity extends AppCompatActivity {
 
     ActivityCreateEventBinding binding;
     Uri image = null;
-    boolean isSubscribe = false;
+    boolean isSubscribe;
     String uuID, imageLink="";
     ProgressDialog progressDialog;
 
@@ -50,42 +51,40 @@ public class CreateEventActivity extends AppCompatActivity {
             finish();
         });
 
-        Constants.databaseReference().child("users").child(Constants.auth().getCurrentUser().getUid())
+        /*Constants.databaseReference().child("users").child(Constants.auth().getCurrentUser().getUid())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         isSubscribe = snapshot.getValue(UserModel.class).isSubscribe();
+                        Stash.put("isSubscribe", isSubscribe);
+                        Toast.makeText(CreateEventActivity.this, "is "+isSubscribe, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
 
                     }
-                });
+                });*/
 
         binding.btnNext.setOnClickListener(v -> {
-            if (!isSubscribe){
-                startActivity(new Intent(this, SubscribeActivity.class));
-            } else {
-                if (validate()){
-                    uuID = UUID.randomUUID().toString();
-                    progressDialog.show();
-                    Constants.storageReference(Constants.auth().getCurrentUser().getUid())
-                            .child("Events").child(uuID).child("image")
-                            .putFile(image).addOnSuccessListener(taskSnapshot -> {
-                                taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(uri -> {
-                                    imageLink = uri.toString();
-                                    uploadEvent();
-                                }).addOnFailureListener(e -> {
-                                    progressDialog.dismiss();
-                                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                });
+            if (validate()){
+                uuID = UUID.randomUUID().toString();
+                progressDialog.show();
+                Constants.storageReference(Constants.auth().getCurrentUser().getUid())
+                        .child("Events").child(uuID).child("image")
+                        .putFile(image).addOnSuccessListener(taskSnapshot -> {
+                            taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(uri -> {
+                                imageLink = uri.toString();
+                                uploadEvent();
                             }).addOnFailureListener(e -> {
                                 progressDialog.dismiss();
-                                // Error, Image not uploaded
-                                Toast.makeText(CreateEventActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             });
-                }
+                        }).addOnFailureListener(e -> {
+                            progressDialog.dismiss();
+                            // Error, Image not uploaded
+                            Toast.makeText(CreateEventActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
             }
         });
 
@@ -94,6 +93,7 @@ public class CreateEventActivity extends AppCompatActivity {
     private void uploadEvent() {
         EventModel model = new EventModel(
                 uuID,
+                Constants.auth().getCurrentUser().getUid(),
                 binding.productName.getEditText().getText().toString(),
                 binding.productDesc.getEditText().getText().toString(),
                 binding.productCategory.getEditText().getText().toString(),
@@ -101,8 +101,7 @@ public class CreateEventActivity extends AppCompatActivity {
                 imageLink,
                 0
         );
-        Constants.databaseReference().child("events").child(Constants.auth().getCurrentUser().getUid())
-                .child(uuID)
+        Constants.databaseReference().child("events").child(uuID)
                 .setValue(model)
                 .addOnSuccessListener(unused -> {
                     progressDialog.dismiss();
