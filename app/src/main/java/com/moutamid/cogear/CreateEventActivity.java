@@ -20,6 +20,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import java.util.UUID;
@@ -31,6 +32,7 @@ public class CreateEventActivity extends AppCompatActivity {
     boolean isSubscribe;
     String uuID, imageLink="";
     ProgressDialog progressDialog;
+    ArrayAdapter<CharSequence> categoryAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,10 @@ public class CreateEventActivity extends AppCompatActivity {
             onBackPressed();
             finish();
         });
+
+        categoryAdapter = ArrayAdapter.createFromResource(this, R.array.category, R.layout.dropdown_layout);
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.categories.setAdapter(categoryAdapter);
 
         /*Constants.databaseReference().child("users").child(Constants.auth().getCurrentUser().getUid())
                 .addValueEventListener(new ValueEventListener() {
