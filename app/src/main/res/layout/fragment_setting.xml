@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragments.SettingFragment">
+
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+      android:text="Account"
+      android:textColor="@color/black"
+      android:fontFamily="@font/inter"
+      android:textStyle="bold"
+      android:layout_marginStart="15dp"
+      android:layout_marginTop="15dp" />
+
+   <Button
+       android:id="@+id/editProfileBtn"
+       style="@style/Widget.AppCompat.Button.Borderless"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:drawableEnd="@drawable/ic_arrow_forward"
+       android:gravity="start|center_vertical"
+       android:textColor="@color/greyText"
+       android:textAllCaps="false"
+       android:drawableTint="@color/greyText"
+       android:text="Edit Profile"
+       android:textSize="20sp" />
+
+   <Button
+       android:id="@+id/changePassBtn"
+       style="@style/Widget.AppCompat.Button.Borderless"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:drawableEnd="@drawable/ic_arrow_forward"
+       android:gravity="start|center_vertical"
+       android:textColor="@color/greyText"
+       android:textAllCaps="false"
+       android:drawableTint="@color/greyText"
+       android:text="Change Password"
+       android:textSize="20sp" />
+
+   <Button
+       android:id="@+id/privacyBtn"
+       style="@style/Widget.AppCompat.Button.Borderless"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:drawableEnd="@drawable/ic_arrow_forward"
+       android:gravity="start|center_vertical"
+       android:textColor="@color/greyText"
+       android:drawableTint="@color/greyText"
+       android:text="Privacy"
+       android:textAllCaps="false"
+       android:textSize="20sp" />
+
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="Account"
+       android:textColor="@color/black"
+       android:fontFamily="@font/inter"
+       android:textStyle="bold"
+       android:layout_marginStart="15dp"
+       android:layout_marginTop="15dp" />
+
+   <Button
+       android:id="@+id/notificationBtn"
+       style="@style/Widget.AppCompat.Button.Borderless"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:drawableEnd="@drawable/ic_arrow_forward"
+       android:gravity="start|center_vertical"
+       android:textColor="@color/greyText"
+       android:textAllCaps="false"
+       android:drawableTint="@color/greyText"
+       android:text="App Notification"
+       android:textSize="20sp" />
+
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="More"
+       android:textColor="@color/black"
+       android:fontFamily="@font/inter"
+       android:textStyle="bold"
+       android:layout_marginStart="15dp"
+       android:layout_marginTop="15dp" />
+
+   <Button
+       android:id="@+id/languageBtn"
+       style="@style/Widget.AppCompat.Button.Borderless"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:drawableEnd="@drawable/ic_arrow_forward"
+       android:gravity="start|center_vertical"
+       android:textColor="@color/greyText"
+       android:textAllCaps="false"
+       android:drawableTint="@color/greyText"
+       android:text="Language"
+       android:textSize="20sp" />
+
+</LinearLayout>

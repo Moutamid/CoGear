@@ -6,4 +6,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="logout"><font color="#EC0000">Logout</font></string>
+
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi iste obcaecati perferendis. Dolores ea eius nihil, officia placeat quaerat reiciendis! Assumenda doloribus eligendi enim explicabo molestiae, nemo numquam quod sint suscipit unde? A, atque dolorum eaque eligendi error facilis hic ipsam laboriosam laudantium modi nesciunt nihil nobis odit quis sint.</string>
 </resources>

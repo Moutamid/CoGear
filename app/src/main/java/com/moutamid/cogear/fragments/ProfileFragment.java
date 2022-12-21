@@ -22,11 +22,12 @@ import com.moutamid.cogear.models.UserModel;
 import com.moutamid.cogear.utilis.Constants;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class ProfileFragment extends Fragment {
     FragmentProfileBinding binding;
     Context context;
-    String[] interests;
+    String[] interests = null;
     ChipsAdapter adapter;
 
     public ProfileFragment() {
@@ -45,13 +46,16 @@ public class ProfileFragment extends Fragment {
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 UserModel model = snapshot.getValue(UserModel.class);
                                 binding.name.setText(model.getName());
-                                binding.memberSince.setText("member since" + model.getDate());
-                                String s = model.getInterests();
-                                /*Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
-                                interests = s.split(" } ");
-                                adapter = new ChipsAdapter(context, interests);
-                                binding.interestRC.setAdapter(adapter);
-                                adapter.notifyItemInserted(interests.length-1);*/
+                                binding.memberSince.setText("member since " + model.getDate());
+                                try {
+                                    String s = model.getInterests();
+                                    interests = s.split(Pattern.quote("}"));
+                                    adapter = new ChipsAdapter(context, interests);
+                                    binding.interestRC.setAdapter(adapter);
+                                    adapter.notifyDataSetChanged();
+                                } catch (Exception e){
+                                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
                             }
 
                             @Override

@@ -20,6 +20,7 @@ import com.moutamid.cogear.databinding.ActivityFeedBinding;
 import com.moutamid.cogear.fragments.FeedFragment;
 import com.moutamid.cogear.fragments.NotificationFragment;
 import com.moutamid.cogear.fragments.ProfileFragment;
+import com.moutamid.cogear.fragments.SettingFragment;
 import com.moutamid.cogear.utilis.Constants;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -87,7 +88,7 @@ public class FeedActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_setting:
                 binding.toolbar.setTitle("Setting!");
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FeedFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingFragment()).commit();
                 break;
             case R.id.nav_logout:
                 Constants.auth().signOut();

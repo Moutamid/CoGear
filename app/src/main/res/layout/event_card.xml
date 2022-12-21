@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:padding="15dp"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardImage"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:cardElevation="0dp"
+        app:cardCornerRadius="16dp">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="149dp"
+            android:layout_height="match_parent"
+            android:src="@color/darkB" />
+
+    </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/eventTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="W'll remove poverty"
+            android:textColor="@color/black"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@id/totalMembers"
+            android:fontFamily="@font/inter" />
+
+        <TextView
+            android:id="@+id/totalMembers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="6"
+            android:drawableEnd="@drawable/people"
+            android:textColor="@color/background"
+            android:drawablePadding="3dp"
+            android:fontFamily="@font/inter"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/eventTitle"
+            android:text="logos"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/greenText"
+            android:drawableStart="@drawable/location"
+            android:drawablePadding="6dp" />
+
+        <TextView
+            android:id="@+id/flags"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/eventTitle"
+            android:text="No Poverty"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="12dp"
+            android:layout_toRightOf="@id/location"
+            android:textColor="@color/darkB"
+            android:drawableStart="@drawable/flag"
+            android:drawablePadding="6dp" />
+
+        <TextView
+            android:id="@+id/detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/location"
+            android:text="@string/lorem"
+            android:lines="3"
+            android:textColor="@color/dark"
+            android:layout_marginTop="8dp" />
+
+    </RelativeLayout>
+
+</LinearLayout>
