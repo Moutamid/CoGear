@@ -16,11 +16,15 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.moutamid.cogear.databinding.ActivityFeedBinding;
 import com.moutamid.cogear.fragments.FeedFragment;
 import com.moutamid.cogear.fragments.NotificationFragment;
 import com.moutamid.cogear.fragments.ProfileFragment;
 import com.moutamid.cogear.fragments.SettingFragment;
+import com.moutamid.cogear.models.UserModel;
 import com.moutamid.cogear.utilis.Constants;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -58,8 +62,20 @@ public class FeedActivity extends AppCompatActivity implements NavigationView.On
 
         CircleImageView profileImage = view.findViewById(R.id.toolbar_profile_image);
 
-        Glide.with(this).load(R.drawable.profle).placeholder(R.drawable.profle).into(profileImage);
+        Constants.databaseReference().child("users").child(Constants.auth().getCurrentUser().getUid())
+                        .addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if(snapshot.exists()){
+                                    Glide.with(FeedActivity.this).load(snapshot.getValue(UserModel.class).getImage()).placeholder(R.drawable.profle).into(profileImage);
+                                }
+                            }
 
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
 
         profileImage.setOnClickListener(v -> {
             binding.toolbar.setTitle("Profile!");

@@ -1,7 +1,7 @@
 package com.moutamid.cogear.models;
 
 public class UserModel {
-    String name, email, password, interests, region, date, city;
+    String name, email, password, interests, region, date, city, image;
     boolean isSubscribe;
     int numberOfEvents;
 
@@ -15,8 +15,16 @@ public class UserModel {
         this.date = date;
         this.numberOfEvents = numberOfEvents;
     }
+    public UserModel(String name, String email, String password, String date, int numberOfEvents, String image) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.date = date;
+        this.numberOfEvents = numberOfEvents;
+        this.image = image;
+    }
 
-    public UserModel(String name, String email, String password, String interests, String region, String date, String city, boolean isSubscribe, int numberOfEvents) {
+    public UserModel(String name, String email, String password, String interests, String region, String date, String city, String image, boolean isSubscribe, int numberOfEvents) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -24,8 +32,17 @@ public class UserModel {
         this.region = region;
         this.date = date;
         this.city = city;
+        this.image = image;
         this.isSubscribe = isSubscribe;
         this.numberOfEvents = numberOfEvents;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getCity() {

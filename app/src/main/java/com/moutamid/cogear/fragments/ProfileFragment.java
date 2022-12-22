@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,9 +48,10 @@ public class ProfileFragment extends Fragment {
                                 UserModel model = snapshot.getValue(UserModel.class);
                                 binding.name.setText(model.getName());
                                 binding.memberSince.setText("member since " + model.getDate());
+                                binding.events.setText(model.getNumberOfEvents() + " events attended");
                                 try {
                                     String s = model.getInterests();
-                                    interests = s.split(Pattern.quote("}"));
+                                    interests = s.split(Pattern.quote(" } "));
                                     adapter = new ChipsAdapter(context, interests);
                                     binding.interestRC.setAdapter(adapter);
                                     adapter.notifyDataSetChanged();
@@ -64,7 +66,7 @@ public class ProfileFragment extends Fragment {
                             }
                         });
 
-        binding.interestRC.setLayoutManager(new GridLayoutManager(context, 3));
+        binding.interestRC.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
         binding.interestRC.setHasFixedSize(false);
 
         return view;

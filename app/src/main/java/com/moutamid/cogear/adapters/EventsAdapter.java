@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,14 +19,16 @@ import com.moutamid.cogear.R;
 import com.moutamid.cogear.models.EventModel;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
-public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventVH> {
+public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventVH> implements Filterable {
     Context context;
-    ArrayList<EventModel> eventList;
+    ArrayList<EventModel> eventList, listAll;;
 
     public EventsAdapter(Context context, ArrayList<EventModel> eventList) {
         this.context = context;
         this.eventList = eventList;
+        listAll = new ArrayList<>(eventList);
     }
 
     @NonNull
@@ -58,6 +62,44 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventVH> {
     public int getItemCount() {
         return eventList.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    Filter filter = new Filter() {
+
+        //run on background thread
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            ArrayList<EventModel> filterList = new ArrayList<>();
+            if (charSequence.toString().isEmpty()){
+                filterList.addAll(listAll);
+            } else {
+                for (EventModel listModel : listAll){
+                    if (
+                            listModel.getTitle().toLowerCase().contains(charSequence.toString().toLowerCase()) ||
+                            listModel.getCity().toLowerCase().contains(charSequence.toString().toLowerCase())
+                    ){
+                        filterList.add(listModel);
+                    }
+                }
+            }
+            FilterResults filterResults = new FilterResults();
+            filterResults.values = filterList;
+
+            return filterResults;
+        }
+
+        //run on Ui thread
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            eventList.clear();
+            eventList.addAll((Collection<? extends EventModel>) filterResults.values);
+            notifyDataSetChanged();
+        }
+    };
 
     public class EventVH extends RecyclerView.ViewHolder{
         ImageView image;
