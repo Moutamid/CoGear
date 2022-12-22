@@ -17,6 +17,7 @@ import com.google.firebase.database.annotations.Nullable;
 import com.moutamid.cogear.adapters.ChatAdapter;
 import com.moutamid.cogear.databinding.ActivityChatBinding;
 import com.moutamid.cogear.models.ChatModel;
+import com.moutamid.cogear.models.NotificationModel;
 import com.moutamid.cogear.models.UserModel;
 import com.moutamid.cogear.utilis.Constants;
 
@@ -78,6 +79,7 @@ public class ChatActivity extends AppCompatActivity {
                                 .child(UID)
                                 .setValue(modelChat).addOnSuccessListener(unused -> {
                                     binding.message.setText("");
+                                    notification();
                                 }).addOnFailureListener(e -> {});
                     }
 
@@ -89,6 +91,32 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void notification() {
+        Constants.databaseReference().child("users").child(Constants.auth().getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            UserModel model = snapshot.getValue(UserModel.class);
+                            NotificationModel notificationModel = new NotificationModel(
+                                    Constants.auth().getCurrentUser().getUid(),
+                                    ID,
+                                    model.getName(),
+                                    name,
+                                    date.getTime()
+                            );
+                            Constants.databaseReference().child("notifications").child(ID).push().setValue(notificationModel)
+                                    .addOnSuccessListener(unused -> {}).addOnFailureListener(e->{});
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
 
     private void getChat() {

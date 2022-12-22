@@ -85,7 +85,6 @@ public class DetailEventActivity extends AppCompatActivity {
                         Toast.makeText(DetailEventActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     });
         });
-
     }
 
     private void addEvents() {
@@ -94,11 +93,32 @@ public class DetailEventActivity extends AppCompatActivity {
         Constants.databaseReference().child("userEvents").child(Constants.auth().getCurrentUser().getUid())
                 .push().setValue(events)
                 .addOnSuccessListener(unused -> {
+                    updateMember();
+                }).addOnFailureListener(e -> {
                     progressDialog.dismiss();
-                    Intent intent = new Intent(DetailEventActivity.this, ChatActivity.class);
-                    intent.putExtra("ID", ID);
-                    intent.putExtra("name", name);
-                    startActivity(intent);
+                    Toast.makeText(DetailEventActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private void updateMember() {
+        Map<String, Object> update = new HashMap<>();
+        Constants.databaseReference().child("events").child(ID)
+                .get().addOnSuccessListener(dataSnapshot -> {
+                    if (dataSnapshot.exists()){
+                        int i = dataSnapshot.getValue(EventModel.class).getMembers() + 1;
+                        update.put("members", i);
+                        Constants.databaseReference().child("events").child(ID).updateChildren(update)
+                                .addOnSuccessListener(unused -> {
+                                    progressDialog.dismiss();
+                                    Intent intent = new Intent(DetailEventActivity.this, ChatActivity.class);
+                                    intent.putExtra("ID", ID);
+                                    intent.putExtra("name", name);
+                                    startActivity(intent);
+                                }).addOnFailureListener(e -> {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(DetailEventActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                });
+                    }
                 }).addOnFailureListener(e -> {
                     progressDialog.dismiss();
                     Toast.makeText(DetailEventActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();

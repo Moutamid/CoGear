@@ -79,7 +79,13 @@ public class FeedFragment extends Fragment {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+                if (snapshot.exists()){
+                    EventModel model = snapshot.getValue(EventModel.class);
+                    list.add(model);
+                    adapter = new EventsAdapter(context, list);
+                    adapter.notifyDataSetChanged();
+                    binding.recyclerEvents.setAdapter(adapter);
+                }
             }
 
             @Override

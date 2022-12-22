@@ -13,6 +13,7 @@
         android:src="@drawable/info" />
 
     <TextView
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Moutamid"
@@ -32,6 +33,7 @@
         android:textSize="15dp" />
 
     <TextView
+        android:id="@+id/event"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="We'll remove poverty"
