@@ -104,7 +104,7 @@ public class FeedActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_setting:
                 binding.toolbar.setTitle("Setting!");
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingFragment(binding.toolbar)).commit();
                 break;
             case R.id.nav_logout:
                 Constants.auth().signOut();

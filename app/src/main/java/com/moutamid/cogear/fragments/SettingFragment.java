@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,9 +21,14 @@ import com.moutamid.cogear.databinding.FragmentSettingBinding;
 public class SettingFragment extends Fragment {
     FragmentSettingBinding binding;
     Context context;
+    Toolbar toolbar;
 
     public SettingFragment() {
         // Required empty public constructor
+    }
+
+    public SettingFragment(Toolbar toolbar) {
+        this.toolbar = toolbar;
     }
 
     @Override
@@ -39,8 +46,13 @@ public class SettingFragment extends Fragment {
         });
 
         binding.privacyBtn.setOnClickListener(v -> {
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("www.google.com"));
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com"));
             startActivity(browserIntent);
+        });
+
+        binding.notificationBtn.setOnClickListener(v -> {
+            toolbar.setTitle("Notification!");
+            FragmentManager.findFragment(view).getParentFragmentManager().beginTransaction().replace(R.id.fragment_container, new NotificationFragment()).commit();
         });
 
         return view;
