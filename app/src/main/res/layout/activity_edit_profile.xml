@@ -40,13 +40,40 @@
 
     </androidx.cardview.widget.CardView>
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_image"
-        android:layout_width="62dp"
-        android:layout_height="62dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="25dp"
-        android:src="@drawable/profile_icon" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginTop="15sp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/profile_icon" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/addImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profile_image"
+            android:layout_toRightOf="@id/profile_image"
+            android:layout_marginTop="-25dp"
+            app:cardBackgroundColor="@color/darkB"
+            android:layout_marginStart="-50dp"
+            app:cardCornerRadius="50dp">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_baseline_edit_24"
+                app:tint="@color/white"
+                android:layout_margin="8dp" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </RelativeLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/name"

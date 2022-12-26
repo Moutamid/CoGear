@@ -46,7 +46,7 @@ public class EditProfileActivity extends AppCompatActivity {
             finish();
         });
 
-        binding.profileImage.setOnClickListener(v -> {
+        binding.addImage.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(Intent.createChooser(intent, "Continue with"), PICK_FROM_GALLERY);
         });
