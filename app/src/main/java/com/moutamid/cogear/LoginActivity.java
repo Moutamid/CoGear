@@ -26,6 +26,10 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setMessage("Logging In");
         progressDialog.setCancelable(false);
 
+        binding.forgetPassword.setOnClickListener(v -> {
+            startActivity(new Intent(this, ForgetPasswordActivity.class));
+        });
+
         binding.btnlogin.setOnClickListener(v -> {
             if (validate()){
                 progressDialog.show();
@@ -46,10 +50,6 @@ public class LoginActivity extends AppCompatActivity {
         binding.createAccount.setOnClickListener(v -> {
             startActivity(new Intent(this, SignUpActivity.class));
             finish();
-        });
-
-        binding.forgetPassword.setOnClickListener(v -> {
-
         });
     }
 

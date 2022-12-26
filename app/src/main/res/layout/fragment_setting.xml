@@ -85,6 +85,7 @@
        android:textColor="@color/black"
        android:fontFamily="@font/inter"
        android:textStyle="bold"
+       android:visibility="gone"
        android:layout_marginStart="15dp"
        android:layout_marginTop="15dp" />
 
@@ -97,6 +98,7 @@
        android:gravity="start|center_vertical"
        android:textColor="@color/greyText"
        android:textAllCaps="false"
+       android:visibility="gone"
        android:drawableTint="@color/greyText"
        android:text="Language"
        android:textSize="20sp" />
