@@ -38,9 +38,16 @@ public class SubscribeActivity extends AppCompatActivity implements BillingProce
         
         binding.btnNext.setOnClickListener(v -> {
             bp.purchase(SubscribeActivity.this, Constants.TWO_HUNDRED_DOLLAR_PRODUCT);
+        });
+        
+    }
 
-            /*Map<String, Object> map = new HashMap<>();
-            map.put("isSubscribe", true);
+    @Override
+    public void onProductPurchased(@NonNull String productId, @Nullable PurchaseInfo details) {
+        if (productId.equals( Constants.TWO_HUNDRED_DOLLAR_PRODUCT)) {
+            Toast.makeText(getApplicationContext(), "Purchased", Toast.LENGTH_SHORT).show();
+            Map<String, Object> map = new HashMap<>();
+            map.put("subscribe", true);
             Constants.databaseReference().child("users").child(Constants.auth().getCurrentUser().getUid())
                     .updateChildren(map)
                     .addOnSuccessListener(unused -> {
@@ -49,15 +56,8 @@ public class SubscribeActivity extends AppCompatActivity implements BillingProce
                     })
                     .addOnFailureListener(e -> {
                         Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    });*/
-        });
-        
-    }
-
-    @Override
-    public void onProductPurchased(@NonNull String productId, @Nullable PurchaseInfo details) {
-        if (productId.equals( Constants.TWO_HUNDRED_DOLLAR_PRODUCT))
-            Toast.makeText(this, "Purchased", Toast.LENGTH_SHORT).show();
+                    });
+        }
         
     }
 

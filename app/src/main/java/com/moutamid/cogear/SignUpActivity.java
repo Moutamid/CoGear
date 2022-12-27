@@ -44,7 +44,7 @@ public class SignUpActivity extends AppCompatActivity {
                     UserModel model = new UserModel(
                             binding.name.getEditText().getText().toString(),
                             binding.email.getEditText().getText().toString(),
-                            binding.password.getEditText().getText().toString(), d, 0, "");
+                            binding.password.getEditText().getText().toString(), d, 0, 0, "", false);
                     Constants.databaseReference().child("users").child(Constants.auth().getCurrentUser().getUid())
                             .setValue(model)
                             .addOnSuccessListener(unused -> {

@@ -1,20 +1,5 @@
 package com.moutamid.cogear;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.fxn.stash.Stash;
-import com.github.dhaval2404.imagepicker.ImagePicker;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.UploadTask;
-import com.moutamid.cogear.databinding.ActivityCreateEventBinding;
-import com.moutamid.cogear.models.EventModel;
-import com.moutamid.cogear.models.UserModel;
-import com.moutamid.cogear.utilis.Constants;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -23,6 +8,17 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.github.dhaval2404.imagepicker.ImagePicker;
+import com.moutamid.cogear.databinding.ActivityCreateEventBinding;
+import com.moutamid.cogear.models.EventModel;
+import com.moutamid.cogear.models.UserModel;
+import com.moutamid.cogear.utilis.Constants;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class CreateEventActivity extends AppCompatActivity {
@@ -30,7 +26,7 @@ public class CreateEventActivity extends AppCompatActivity {
     ActivityCreateEventBinding binding;
     Uri image = null;
     boolean isSubscribe;
-    String uuID, imageLink="";
+    String uuID, imageLink = "";
     ProgressDialog progressDialog;
     ArrayAdapter<CharSequence> categoryAdapter;
 
@@ -73,30 +69,44 @@ public class CreateEventActivity extends AppCompatActivity {
                 });*/
 
         binding.btnNext.setOnClickListener(v -> {
-            if (validate()){
-                uuID = UUID.randomUUID().toString();
-                progressDialog.show();
-                Constants.storageReference(Constants.auth().getCurrentUser().getUid())
-                        .child("Events").child(uuID).child("image")
-                        .putFile(image).addOnSuccessListener(taskSnapshot -> {
-                            taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(uri -> {
-                                imageLink = uri.toString();
-                                uploadEvent();
-                            }).addOnFailureListener(e -> {
-                                progressDialog.dismiss();
-                                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            });
-                        }).addOnFailureListener(e -> {
-                            progressDialog.dismiss();
-                            // Error, Image not uploaded
-                            Toast.makeText(CreateEventActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        });
-            }
+            Constants.databaseReference().child("users").child(Constants.auth().getCurrentUser().getUid())
+                    .get().addOnSuccessListener(dataSnapshot -> {
+                        UserModel model = dataSnapshot.getValue(UserModel.class);
+                        if (!model.isSubscribe()) {
+                            startActivity(new Intent(CreateEventActivity.this, SubscribeActivity.class));
+                        } else {
+                            if (validate()) {
+                                uuID = UUID.randomUUID().toString();
+                                progressDialog.show();
+                                if (model.getEventsCreated() < 3) {
+                                    Constants.storageReference(Constants.auth().getCurrentUser().getUid())
+                                            .child("Events").child(uuID).child("image")
+                                            .putFile(image).addOnSuccessListener(taskSnapshot -> {
+                                                taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(uri -> {
+                                                    imageLink = uri.toString();
+                                                    uploadEvent(model.getEventsCreated());
+                                                }).addOnFailureListener(e -> {
+                                                    progressDialog.dismiss();
+                                                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                });
+                                            }).addOnFailureListener(e -> {
+                                                progressDialog.dismiss();
+                                                Toast.makeText(CreateEventActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                            });
+                                } else {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(this, "You can only create 2 events", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+                    }).addOnFailureListener(e -> {
+                        Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
         });
 
     }
 
-    private void uploadEvent() {
+    private void uploadEvent(int eventsCreated) {
         EventModel model = new EventModel(
                 uuID,
                 Constants.auth().getCurrentUser().getUid(),
@@ -110,9 +120,16 @@ public class CreateEventActivity extends AppCompatActivity {
         Constants.databaseReference().child("events").child(uuID)
                 .setValue(model)
                 .addOnSuccessListener(unused -> {
-                    progressDialog.dismiss();
-                    onBackPressed();
-                    finish();
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("eventsCreated", (eventsCreated + 1));
+                    Constants.databaseReference().child("users").child(Constants.auth().getCurrentUser().getUid())
+                            .updateChildren(map).addOnSuccessListener(unused1 -> {
+                                progressDialog.dismiss();
+                                onBackPressed();
+                                finish();
+                            }).addOnFailureListener(e -> {
+                                progressDialog.dismiss();
+                            });
                 })
                 .addOnFailureListener(e -> {
                     progressDialog.dismiss();
@@ -120,27 +137,27 @@ public class CreateEventActivity extends AppCompatActivity {
     }
 
     private boolean validate() {
-        if (binding.productName.getEditText().getText().toString().isEmpty()){
+        if (binding.productName.getEditText().getText().toString().isEmpty()) {
             binding.productName.getEditText().setError("Please Provide a valid name");
             binding.productName.getEditText().requestFocus();
             return false;
         }
-        if (binding.productDesc.getEditText().getText().toString().isEmpty()){
+        if (binding.productDesc.getEditText().getText().toString().isEmpty()) {
             binding.productDesc.getEditText().setError("Description is Required");
             binding.productDesc.getEditText().requestFocus();
             return false;
         }
-        if (binding.productCategory.getEditText().getText().toString().isEmpty()){
+        if (binding.productCategory.getEditText().getText().toString().isEmpty()) {
             binding.productCategory.getEditText().setError("Category is Required*");
             binding.productCategory.getEditText().requestFocus();
             return false;
         }
-        if (binding.cityName.getEditText().getText().toString().isEmpty()){
+        if (binding.cityName.getEditText().getText().toString().isEmpty()) {
             binding.cityName.getEditText().setError("City is Required*");
             binding.cityName.getEditText().requestFocus();
             return false;
         }
-        if (image == null){
+        if (image == null) {
             Toast.makeText(this, "Please Upload a image", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -150,10 +167,10 @@ public class CreateEventActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK && data != null){
+        if (resultCode == Activity.RESULT_OK && data != null) {
             image = data.getData();
             binding.uploadImage.setImageURI(image);
-        } else if (resultCode == ImagePicker.RESULT_ERROR){
+        } else if (resultCode == ImagePicker.RESULT_ERROR) {
             Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show();
         }
     }
