@@ -37,7 +37,21 @@ public class SubscribeActivity extends AppCompatActivity implements BillingProce
         });
         
         binding.btnNext.setOnClickListener(v -> {
-            bp.purchase(SubscribeActivity.this, Constants.TWO_HUNDRED_DOLLAR_PRODUCT);
+            // Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
+           // bp.purchase(SubscribeActivity.this, Constants.TWO_HUNDRED_DOLLAR_PRODUCT);
+            Map<String, Object> map = new HashMap<>();
+            map.put("subscribe", true);
+            Constants.databaseReference().child("users").child(Constants.auth().getCurrentUser().getUid())
+                    .updateChildren(map)
+                    .addOnSuccessListener(unused -> {
+                        Toast.makeText(getApplicationContext(), "Purchased", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(SubscribeActivity.this, CreateEventActivity.class));
+                        finish();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
+
         });
         
     }
@@ -45,7 +59,7 @@ public class SubscribeActivity extends AppCompatActivity implements BillingProce
     @Override
     public void onProductPurchased(@NonNull String productId, @Nullable PurchaseInfo details) {
         if (productId.equals( Constants.TWO_HUNDRED_DOLLAR_PRODUCT)) {
-            Toast.makeText(getApplicationContext(), "Purchased", Toast.LENGTH_SHORT).show();
+            /*Toast.makeText(getApplicationContext(), "Purchased", Toast.LENGTH_SHORT).show();
             Map<String, Object> map = new HashMap<>();
             map.put("subscribe", true);
             Constants.databaseReference().child("users").child(Constants.auth().getCurrentUser().getUid())
@@ -56,7 +70,7 @@ public class SubscribeActivity extends AppCompatActivity implements BillingProce
                     })
                     .addOnFailureListener(e -> {
                         Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    });
+                    });*/
         }
         
     }

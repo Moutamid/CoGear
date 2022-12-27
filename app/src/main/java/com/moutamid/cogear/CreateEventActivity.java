@@ -77,8 +77,8 @@ public class CreateEventActivity extends AppCompatActivity {
                         } else {
                             if (validate()) {
                                 uuID = UUID.randomUUID().toString();
-                                progressDialog.show();
-                                if (model.getEventsCreated() < 3) {
+                                if (model.getEventsCreated() < 2) {
+                                    progressDialog.show();
                                     Constants.storageReference(Constants.auth().getCurrentUser().getUid())
                                             .child("Events").child(uuID).child("image")
                                             .putFile(image).addOnSuccessListener(taskSnapshot -> {
