@@ -105,13 +105,9 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         try {
             if (requestCode == PICK_FROM_GALLERY) {
-                try {
-                    if (resultCode == RESULT_OK && data != null && data.getData() != null) {
-                        imageURI = data.getData();
-                        binding.profileImage.setImageURI(imageURI);
-                    }
-                } catch (Exception e) {
-                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                if (resultCode == RESULT_OK && data != null && data.getData() != null) {
+                    imageURI = data.getData();
+                    Glide.with(EditProfileActivity.this).load(imageURI).into(binding.profileImage);
                 }
             }
         } catch (Exception e) {
