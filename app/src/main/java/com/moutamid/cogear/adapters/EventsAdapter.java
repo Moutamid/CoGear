@@ -23,7 +23,7 @@ import java.util.Collection;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventVH> implements Filterable {
     Context context;
-    ArrayList<EventModel> eventList, listAll;;
+    ArrayList<EventModel> eventList, listAll;
 
     public EventsAdapter(Context context, ArrayList<EventModel> eventList) {
         this.context = context;

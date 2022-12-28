@@ -19,8 +19,8 @@ import java.util.ArrayList;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatVH> {
 
-    private Context context;
-    private ArrayList<ChatModel> list;
+    private final Context context;
+    private final ArrayList<ChatModel> list;
 
     private static final int MSG_TYPE_LEFT = 0;
     private static final int MSG_TYPE_RIGHT = 1;
@@ -63,9 +63,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatVH> {
     }
 
     public class ChatVH extends RecyclerView.ViewHolder{
-        private ImageView sender_img;
-        private TextView message_chat;
-        private TextView time_chat;
+        private final ImageView sender_img;
+        private final TextView message_chat;
+        private final TextView time_chat;
         public ChatVH(@NonNull View itemView) {
             super(itemView);
             sender_img = itemView.findViewById(R.id.sender_img);

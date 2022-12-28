@@ -42,7 +42,7 @@ public class SelectInterestActivity extends AppCompatActivity {
             if (selected) {
                 interests.add(name);
             } else {
-                interests.remove(interests.indexOf(name));
+                interests.remove(name);
             }
         }
     };
