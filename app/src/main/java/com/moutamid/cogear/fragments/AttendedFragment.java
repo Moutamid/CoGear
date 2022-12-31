@@ -31,7 +31,7 @@ public class AttendedFragment extends Fragment {
     Context context;
     EventsAdapter adapter;
     ArrayList<EventModel> eventModelArrayList;
-    ArrayList<EventIDModel> IDS;
+    ArrayList<String> IDS;
 
     public AttendedFragment() {
         // Required empty public constructor
@@ -56,7 +56,7 @@ public class AttendedFragment extends Fragment {
                         if (snapshot.exists()) {
                             for (DataSnapshot snapshot1: snapshot.getChildren()){
                                 EventIDModel model = snapshot1.getValue(EventIDModel.class);
-                                IDS.add(model);
+                                IDS.add(model.getID());
                             }
                             loadEvents();
                         }
@@ -72,12 +72,12 @@ public class AttendedFragment extends Fragment {
     }
 
     private void loadEvents() {
-        Set<EventIDModel> s = new LinkedHashSet<>(IDS);
+        Set<String> s = new LinkedHashSet<>(IDS);
         IDS.clear();
         IDS.addAll(s);
 
         for (int i=0; i< IDS.size(); i++) {
-            Constants.databaseReference().child("events").child(IDS.get(i).getID())
+            Constants.databaseReference().child("events").child(IDS.get(i))
                     .addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
