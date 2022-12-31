@@ -20,6 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.moutamid.cogear.databinding.ActivityFeedBinding;
+import com.moutamid.cogear.fragments.AttendedFragment;
 import com.moutamid.cogear.fragments.FeedFragment;
 import com.moutamid.cogear.fragments.NotificationFragment;
 import com.moutamid.cogear.fragments.ProfileFragment;
@@ -101,6 +102,10 @@ public class FeedActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_profile:
                 binding.toolbar.setTitle("Profile!");
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+                break;
+            case R.id.nav_attended:
+                binding.toolbar.setTitle("Attended Events!");
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AttendedFragment()).commit();
                 break;
             case R.id.nav_setting:
                 binding.toolbar.setTitle("Setting!");

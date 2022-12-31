@@ -17,6 +17,10 @@
         android:icon="@drawable/profle"
         android:title="Profile" />
 
+    <item android:id="@+id/nav_attended"
+        android:icon="@drawable/ic_event"
+        android:title="Attended Events" />
+
     <item android:id="@+id/nav_setting"
         android:icon="@drawable/setting"
         android:title="Setting" />
