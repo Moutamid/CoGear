@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.moutamid.cogear.CreateEventActivity;
 import com.moutamid.cogear.R;
 import com.moutamid.cogear.adapters.EventsAdapter;
@@ -65,37 +66,20 @@ public class FeedFragment extends Fragment {
             }
         });
 
-        Constants.databaseReference().child("events").addChildEventListener(new ChildEventListener() {
+        Constants.databaseReference().child("events").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if (snapshot.exists()){
-                    EventModel model = snapshot.getValue(EventModel.class);
-                    list.add(model);
-                    adapter = new EventsAdapter(context, list);
-                    adapter.notifyDataSetChanged();
-                    binding.recyclerEvents.setAdapter(adapter);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // list.clear();
+                if (snapshot.exists()) {
+                    list.clear();
+                    for (DataSnapshot snapshot1 : snapshot.getChildren()){
+                        EventModel model = snapshot1.getValue(EventModel.class);
+                        list.add(model);
+                        adapter = new EventsAdapter(context, list);
+                        adapter.notifyDataSetChanged();
+                        binding.recyclerEvents.setAdapter(adapter);
+                    }
                 }
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if (snapshot.exists()){
-                    EventModel model = snapshot.getValue(EventModel.class);
-                    list.add(model);
-                    adapter = new EventsAdapter(context, list);
-                    adapter.notifyDataSetChanged();
-                    binding.recyclerEvents.setAdapter(adapter);
-                }
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
             }
 
             @Override

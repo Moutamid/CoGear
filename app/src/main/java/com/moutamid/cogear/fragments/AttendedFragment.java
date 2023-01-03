@@ -76,25 +76,30 @@ public class AttendedFragment extends Fragment {
         IDS.clear();
         IDS.addAll(s);
 
-        for (int i=0; i< IDS.size(); i++) {
-            Constants.databaseReference().child("events").child(IDS.get(i))
-                    .addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.exists()) {
-                                EventModel model = snapshot.getValue(EventModel.class);
-                                eventModelArrayList.add(model);
+        Constants.databaseReference().child("events")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            eventModelArrayList.clear();
+                            for (DataSnapshot dataSnapshot: snapshot.getChildren()){
+                                EventModel model = dataSnapshot.getValue(EventModel.class);
+                                for (int i=0; i< IDS.size(); i++) {
+                                    if (model.getID().equals(IDS.get(i))){
+                                        eventModelArrayList.add(model);
+                                    }
+                                }
                                 adapter = new EventsAdapter(context, eventModelArrayList);
                                 adapter.notifyDataSetChanged();
                                 binding.recyclerEvents.setAdapter(adapter);
                             }
                         }
+                    }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                        }
-                    });
-        }
+                    }
+                });
     }
 }
